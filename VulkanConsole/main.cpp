@@ -26,46 +26,44 @@ Create and destroy a simple Vulkan instance.
 #include <iostream>
 #include <vector>
 
-int main()
-{
-    // Use validation layers if this is a debug build
-    std::vector<const char*> layers;
+bool programRunning;		//Global Program State
+
+int main(int argc, char** argv ) {
+  // Use validation layers if this is a debug build
+  std::vector<const char *> layers;
 #if defined(_DEBUG)
     layers.push_back("VK_LAYER_LUNARG_standard_validation");
 #endif
-
     // VkApplicationInfo allows the programmer to specifiy some basic information about the
     // program, which can be useful for layers and tools to provide more debug information.
-    vk::ApplicationInfo appInfo = vk::ApplicationInfo()
+    vk::ApplicationInfo AppInfo = vk::ApplicationInfo()
         .setPApplicationName("Vulkan C++ Program Template")
         .setApplicationVersion(1)
         .setPEngineName("LunarG SDK")
         .setEngineVersion(1)
         .setApiVersion(VK_API_VERSION_1_0);
-
     // VkInstanceCreateInfo is where the programmer specifies the layers and/or extensions that
     // are needed. For now, none are enabled.
-    vk::InstanceCreateInfo instInfo = vk::InstanceCreateInfo()
+    vk::InstanceCreateInfo InstInfo = vk::InstanceCreateInfo()
         .setFlags(vk::InstanceCreateFlags())
-        .setPApplicationInfo(&appInfo)
+        .setPApplicationInfo(&AppInfo)
         .setEnabledExtensionCount(0)
         .setPpEnabledExtensionNames(NULL)
         .setEnabledLayerCount(static_cast<uint32_t>(layers.size()))
         .setPpEnabledLayerNames(layers.data());
-
     // Create the Vulkan instance.
-    vk::Instance instance;
+    vk::Instance VulkanInst;
     try {
-        instance = vk::createInstance(instInfo);
+        VulkanInst = vk::createInstance(InstInfo);
     } catch(std::exception e) {
         std::cout << "Could not create a Vulkan instance: " << e.what() << std::endl;
         return 1;
     }
-
     // Normally, a program would do something with the instance here. This, however, is just a
     // simple demo program, so we just finish up right away.
-
-    instance.destroy();
-
+    while(programRunning)
+      {
+      }
+    VulkanInst.destroy();
     return 0;
 }
