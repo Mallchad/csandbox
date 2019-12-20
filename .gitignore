@@ -6,7 +6,8 @@
 *.lo
 *.o
 *.obj
-
+*.pdb
+*.deoxygen
 # Precompiled Headers
 *.gch
 *.pch
@@ -26,7 +27,16 @@
 *.a
 *.lib
 
+# Log Files
+*.ilk
+*.tlog
+
 # Executables
 *.exe
 *.out
 *.app
+
+# Visual Studio Cache
+**/.vs/**
+
+#Whitelist
